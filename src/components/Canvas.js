@@ -3,7 +3,6 @@ import { drawShape, isPointInTriangle } from '../utils/shapeUtils';
 
 const Canvas = ({ shapes, setShapes, dragShape, setDragShape }) => {
   const canvasRef = useRef(null);
-  const clickTimeout = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,7 +18,6 @@ const Canvas = ({ shapes, setShapes, dragShape, setDragShape }) => {
     shapes.forEach(shape => drawShape(ctx, shape));
   };
 
-  // Redraw on shape update
   useEffect(() => {
     if (shapes.length > 0) {
       redrawCanvas();
@@ -35,7 +33,6 @@ const Canvas = ({ shapes, setShapes, dragShape, setDragShape }) => {
     const rect = canvasRef.current.getBoundingClientRect();
     const ctx = canvasRef.current.getContext('2d');
 
-    // Calculate drop position relative to canvas
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
@@ -44,7 +41,7 @@ const Canvas = ({ shapes, setShapes, dragShape, setDragShape }) => {
 
     drawShape(ctx, newShape);
 
-    setDragShape(null); // reset
+    setDragShape(null);
   };
 
   const handleDoubleClick = (e) => {
@@ -60,7 +57,7 @@ const Canvas = ({ shapes, setShapes, dragShape, setDragShape }) => {
         (shape.type === 'circle' && Math.hypot(shape.x - x, shape.y - y) <= 40) ||
         (shape.type === 'triangle' && isPointInTriangle(x, y, shape))
       ) {
-        newShapes.splice(i, 1); // remove the shape
+        newShapes.splice(i, 1);
         setShapes(newShapes);
         break;
       }
