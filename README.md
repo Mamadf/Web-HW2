@@ -50,5 +50,5 @@
 ```bash
 git clone https://github.com/Mamadf/Web-HW2.git
 cd Web-HW2
-npm install //if it's not installed
+npm install #if it's not installed
 npm start
